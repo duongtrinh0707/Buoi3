@@ -36,10 +36,15 @@ namespace Buoi3.Controllers
 
         // Xử lý thêm sản phẩm mới
         [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(Product product, IFormFile imageUrl)
         {
             if (ModelState.IsValid)
             {
+                if (imageUrl != null)
+                {
+                    product.ImageUrl = await SaveImage(imageUrl);
+                }
+              
                 await _productRepository.AddAsync(product);
                 return RedirectToAction(nameof(Index));
             }
@@ -75,8 +80,7 @@ namespace Buoi3.Controllers
         }
         // Xử lý cập nhật sản phẩm
         [HttpPost]
-        public async Task<IActionResult> Edit
-            (int id, Product product)
+        public async Task<IActionResult> Edit   (int id, Product product, IFormFile imageUrl)
         {
             if (id != product.Id)
             {
@@ -84,6 +88,7 @@ namespace Buoi3.Controllers
             }
             if (ModelState.IsValid)
             {
+               
                 await _productRepository.UpdateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
@@ -104,6 +109,15 @@ namespace Buoi3.Controllers
         {
             await _productRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<string> SaveImage(IFormFile image)
+        {
+            var savePath = Path.Combine("wwwroot/images", image.FileName);
+            using (var fileStream = new FileStream (savePath, FileMode.Create))
+            {
+                await image.CopyToAsync (fileStream);
+            }
+            return "/images/" + image.FileName;
         }
     }
 }

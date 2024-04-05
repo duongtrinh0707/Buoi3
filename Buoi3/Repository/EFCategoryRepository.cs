@@ -10,22 +10,19 @@ namespace Buoi3.Repository
         {
             _context = context;
         }
-         public async Task<IEnumerable<Product>> GetAllAsync()
+         public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Categories.ToListAsync();
         }
-        public async Task<Product> GetByIdAsync(int id)
+        public async Task<Category> GetByIdAsync(int id) => await _context.Categories.FindAsync(id);
+        public async Task AddAsync(Category category)
         {
-            return await _context.Products.FindAsync(id);
-        }
-        public async Task AddAsync(Product product)
-        {
-            _context.Products.Add(product);
+            _context.Categories.Add(category);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdateAsync(Product product)
+        public async Task UpdateAsync(Category category)
         {
-            _context.Products.Update(product);
+            _context.Categories.Update(category);
             await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(int id)
@@ -35,24 +32,6 @@ namespace Buoi3.Repository
             await _context.SaveChangesAsync();
         }
 
-        Task<IEnumerable<Category>> ICategoryRepository.GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Category> ICategoryRepository.GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddAsync(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Category category)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
