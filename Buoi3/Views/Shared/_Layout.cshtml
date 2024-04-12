@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Buoi3</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cnd.jsdeliv.net/npm/bootstrap-icon@Int128.5.0/font/boostrap-icons.css" rel="stylesheet"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Buoi3.styles.css" asp-append-version="true" />
 </head>
@@ -26,6 +27,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    <partial name="_LoginPartial"/>
+                    <form class=" d-flex">
+                        <button class="btn btn-outline-dark" type="submit" asp-controller="ShoppingCart" asp-action="Index">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                        </button>
+                    </form>
                 </div>
             </div>
         </nav>
