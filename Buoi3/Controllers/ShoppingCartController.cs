@@ -1,11 +1,13 @@
 ﻿using Buoi3.Extensions;
 using Buoi3.Models;
 using Buoi3.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Buoi3.Controllers
 {
+    [Authorize]
     public class ShoppingCartController : Controller
     {
         private readonly IProductRepository _productRepository;
